@@ -1,0 +1,35 @@
+/*
+ * Activity.h
+ *
+ *  Created on: Aug 8, 2012
+ *      Author: madisob
+ */
+
+#ifndef PATTERNSTRING_H_
+#define PATTERNSTRING_H_
+
+#include "Constants.h"
+
+//!  An Pattern to match to.
+/*!
+  Structure to represent some pattern of characters.
+  Using information in the structure a regular expression can be constructed to match against
+
+  The regex assuming the sample rates are the same becomes:
+  C[1]^min[i] + | C[1]^1 | C[1]^2 | ... | C[1]^(max[1] - min[1]) + ...
+ */
+typedef struct _PatternString
+{
+	NUM   		sample_rate;			/*!< Sample rate of the pattern. */
+	int     	N;    					/*!< Number of characters */
+
+	CHARACTER*	C;						/*!< The string of characters.*/
+	float*		min;					/*!< Size N array of the minimum times each character can be repeated. */
+	float*		max;					/*!< Size N array of the maximum times each character can be repeated. */
+	float*		W;						/*!< Weights for each dimension of the characters. */
+
+	int			id;						/*!< An integer to distuingish this pattern from others. */
+
+} PatternString;
+
+#endif /* PATTERNSTRING_H_ */

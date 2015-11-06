@@ -1,0 +1,33 @@
+
+**** Build of configuration Release for project Human ****
+
+make all 
+Building file: ../Human.c
+Invoking: GCC C Compiler
+gcc -I"/home/madison/Dropbox/PoseProject-sync/C/ActivityRecognition" -I"/home/madison/Dropbox/PoseProject-sync/C/Quaternion" -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Human.d" -MT"Human.d" -o "Human.o" "../Human.c"
+Finished building: ../Human.c
+ 
+Building file: ../XMLHumanActivityRead.c
+Invoking: GCC C Compiler
+gcc -I"/home/madison/Dropbox/PoseProject-sync/C/ActivityRecognition" -I"/home/madison/Dropbox/PoseProject-sync/C/Quaternion" -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"XMLHumanActivityRead.d" -MT"XMLHumanActivityRead.d" -o "XMLHumanActivityRead.o" "../XMLHumanActivityRead.c"
+../XMLHumanActivityRead.c: In function ‘XMLHumanActivityRead’:
+../XMLHumanActivityRead.c:106:3: warning: implicit declaration of function ‘freePoseSequence’ [-Wimplicit-function-declaration]
+Finished building: ../XMLHumanActivityRead.c
+ 
+Building file: ../XMLHumanPoseRead.c
+Invoking: GCC C Compiler
+gcc -I"/home/madison/Dropbox/PoseProject-sync/C/ActivityRecognition" -I"/home/madison/Dropbox/PoseProject-sync/C/Quaternion" -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"XMLHumanPoseRead.d" -MT"XMLHumanPoseRead.d" -o "XMLHumanPoseRead.o" "../XMLHumanPoseRead.c"
+../XMLHumanPoseRead.c: In function ‘XMLHumanPoseRead’:
+../XMLHumanPoseRead.c:56:2: warning: implicit declaration of function ‘constructPoseSequence’ [-Wimplicit-function-declaration]
+../XMLHumanPoseRead.c:56:4: warning: assignment makes pointer from integer without a cast [enabled by default]
+../XMLHumanPoseRead.c:100:3: warning: implicit declaration of function ‘freePoseSequence’ [-Wimplicit-function-declaration]
+Finished building: ../XMLHumanPoseRead.c
+ 
+Building target: libHuman.a
+Invoking: GCC Archiver
+ar -r  "libHuman.a"  ./Human.o ./XMLHumanActivityRead.o ./XMLHumanPoseRead.o   
+ar: creating libHuman.a
+Finished building target: libHuman.a
+ 
+
+**** Build Finished ****

@@ -1,0 +1,77 @@
+10
+
+dir
+0
+svn://zen12/C/Human/Release
+svn://zen12
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8de96e99-d1b8-41e1-b6af-207ae9cf902a
+
+XMLHumanActivityRead (madisonLaptop's conflicted copy 2012-08-17).d
+file
+
+
+
+add
+
+objects.mk
+file
+
+
+
+add
+
+sources.mk
+file
+
+
+
+add
+
+Human.d
+file
+
+
+
+add
+
+makefile
+file
+
+
+
+add
+
+XMLHumanPoseRead.d
+file
+
+
+
+add
+
+subdir.mk
+file
+
+
+
+add
+

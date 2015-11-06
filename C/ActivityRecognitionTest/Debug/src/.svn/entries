@@ -1,0 +1,49 @@
+10
+
+dir
+0
+svn://zen12/C/ActivityRecognitionTest/Debug/src
+svn://zen12
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8de96e99-d1b8-41e1-b6af-207ae9cf902a
+
+ActivityRecognitionTest.d
+file
+
+
+
+add
+
+SimpleTest.d
+file
+
+
+
+add
+
+subdir.mk
+file
+
+
+
+add
+

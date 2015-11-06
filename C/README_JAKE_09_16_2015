@@ -1,0 +1,18 @@
+This is a readme for anyone who uses this code later.
+
+The group that took the code from Jake Dennis that worked on the suit and combined it with
+Madison Blake classifier messed things up completely.
+
+I (Jake Dennis) have been working on integrating it correctly....
+I have removed the heart rate thread.
+I have removed the bp thread.
+
+I have fix the calculation of the quaternions coming off the suit in the MotionCapture.cpp code.
+
+I have added debug information in the main.cpp file where they call the classifier.
+I expect the following:
+Classify Thread Quat: ID_NUM [W,X,Y,Z]
+I expect that they should be normalized, and that the 
+limbs are [W,0,Y,Z] ALWAYS.
+The Torso should have a rotation about Z which is roll in this case for the global axis.
+

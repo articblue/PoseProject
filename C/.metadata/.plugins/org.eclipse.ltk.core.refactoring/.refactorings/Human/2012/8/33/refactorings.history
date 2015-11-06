@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Human/Constants.h&apos; to &apos;XMLCommon.h&apos;" description="Rename resource &apos;Constants.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Constants.h" name="XMLCommon.h" stamp="1345051055209" updateReferences="true"/>
+</session>

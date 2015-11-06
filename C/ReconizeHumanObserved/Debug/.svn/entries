@@ -1,0 +1,84 @@
+10
+
+dir
+0
+svn://zen12/C/ReconizeHumanObserved/Debug
+svn://zen12
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8de96e99-d1b8-41e1-b6af-207ae9cf902a
+
+objects.mk
+file
+
+
+
+add
+
+PoseSequence_1_1_2_3.xml
+file
+
+
+
+add
+
+ReconizeHumanObserved
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+src
+dir
+
+
+
+add
+
+sources.mk
+file
+
+
+
+add
+
+ActivityAlphabet_Running-D_11-S_120-R_2-M_Moment-WM_IOD-LM_2.XML
+file
+
+
+
+add
+
+makefile
+file
+
+
+
+add
+

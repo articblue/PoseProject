@@ -1,0 +1,35 @@
+/*
+ ============================================================================
+ Name        : QuaternionTest.c
+ Author      : Madison Blake
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Quaternion Test - Unit Test of Quaternion Library
+ ============================================================================
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <math.h>
+#include "quaternion.h"
+#include "quatconj.h"
+
+int main(void)
+{
+  struct quaternion Q;
+
+  Q.w = 1.5;
+  Q.x = 4;
+  Q.y = 7;
+  Q.z = 3;
+
+  struct quaternion Qconj = quatconj(Q);
+
+  if(Qconj.w != Q.w || Qconj.x != -Q.x || Qconj.y != -Q.y || Qconj.z != -Q.z)
+    printf("ERROR: Conjugate Failure\n");
+
+
+  prinf("Done\n");
+  return EXIT_SUCCESS;
+}

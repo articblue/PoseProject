@@ -1,0 +1,56 @@
+\hypertarget{_sequence_8h}{
+\section{ActivityRecognition/Sequence.h File Reference}
+\label{_sequence_8h}\index{ActivityRecognition/Sequence.h@{ActivityRecognition/Sequence.h}}
+}
+{\ttfamily \#include \char`\"{}Constants.h\char`\"{}}\par
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct___sequence}{\_\-Sequence}
+\begin{DoxyCompactList}\small\item\em General Structure for a sequence of characters. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct___sequence}{\_\-Sequence} \hyperlink{_sequence_8h_abd8c68686aa86f704a5120fdfdf8336c}{Sequence}
+\begin{DoxyCompactList}\small\item\em General Structure for a sequence of characters. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct___sequence}{Sequence} \hyperlink{_sequence_8h_aead1d91e50b073006aca73e9eb048a89}{subSequence} (const \hyperlink{struct___sequence}{Sequence} $\ast$S, int start, int end)
+\begin{DoxyCompactList}\small\item\em Gets a sub sequence. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\hypertarget{_sequence_8h_abd8c68686aa86f704a5120fdfdf8336c}{
+\index{Sequence.h@{Sequence.h}!Sequence@{Sequence}}
+\index{Sequence@{Sequence}!Sequence.h@{Sequence.h}}
+\subsubsection[{Sequence}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-Sequence}  {\bf Sequence}}}
+\label{_sequence_8h_abd8c68686aa86f704a5120fdfdf8336c}
+
+
+General Structure for a sequence of characters. 
+
+A sequence is a size N array of characters. Each character is of type CHARACTER.
+
+It is assumed that each character has been pulled from some stream. sample\_\-rate defines that streams sample rate, how much time exist between C\mbox{[}i\mbox{]} and C\mbox{[}i+1\mbox{]}. 
+
+\subsection{Function Documentation}
+\hypertarget{_sequence_8h_aead1d91e50b073006aca73e9eb048a89}{
+\index{Sequence.h@{Sequence.h}!subSequence@{subSequence}}
+\index{subSequence@{subSequence}!Sequence.h@{Sequence.h}}
+\subsubsection[{subSequence}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Sequence} subSequence (const {\bf Sequence} $\ast$ {\em S}, \/  int {\em start}, \/  int {\em end})}}
+\label{_sequence_8h_aead1d91e50b073006aca73e9eb048a89}
+
+
+Gets a sub sequence. 
+
+
+\begin{DoxyParams}{Parameters}
+\item[{\em S}]Sequence to get sub-\/sequence of \item[{\em start}]the first character in sequence \item[{\em end}]the last character in sequence \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Sub-\/sequence of S 
+\end{DoxyReturn}
+
+
+Definition at line 18 of file Sequence.c.
+

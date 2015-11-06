@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Quaternion/quatnorm.h&apos; to &apos;quaternion.h&apos;" description="Rename resource &apos;quatnorm.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="quatnorm.h" name="quaternion.h" stamp="1342034623442" updateReferences="true"/>
+</session>

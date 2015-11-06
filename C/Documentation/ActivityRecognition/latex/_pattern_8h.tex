@@ -1,0 +1,35 @@
+\hypertarget{_pattern_8h}{
+\section{ActivityRecognition/Pattern.h File Reference}
+\label{_pattern_8h}\index{ActivityRecognition/Pattern.h@{ActivityRecognition/Pattern.h}}
+}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct___pattern}{\_\-Pattern}
+\begin{DoxyCompactList}\small\item\em A regular expression to express a set of possible sequences. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct___pattern}{\_\-Pattern} \hyperlink{_pattern_8h_ad96e306b574478b93789fff2f984b1c4}{Pattern}
+\begin{DoxyCompactList}\small\item\em A regular expression to express a set of possible sequences. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\hypertarget{_pattern_8h_ad96e306b574478b93789fff2f984b1c4}{
+\index{Pattern.h@{Pattern.h}!Pattern@{Pattern}}
+\index{Pattern@{Pattern}!Pattern.h@{Pattern.h}}
+\subsubsection[{Pattern}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-Pattern}  {\bf Pattern}}}
+\label{_pattern_8h_ad96e306b574478b93789fff2f984b1c4}
+
+
+A regular expression to express a set of possible sequences. 
+
+A Pattern expresses a set of sequences which together represent the regular expression of the pattern Using information in the structure a regular expression can be constructed to match against.
+
+A sequence is a size N array of characters. Each character is of type CHARACTER.
+
+It is assumed that each character has been pulled from some stream. sample\_\-rate defines that streams sample rate, how much time exist between C\mbox{[}i\mbox{]} and C\mbox{[}i+1\mbox{]}.
+
+Each character is allowed a minimum and maximum occurences in the regular expression.
+
+The regex for possible sequences (assuming matching sample\_\-rate's) for the activity is expressed by: (C\mbox{[}1\mbox{]}$^\wedge$min\mbox{[}1\mbox{]} + $|$ C\mbox{[}1\mbox{]}$^\wedge$1 $|$ C\mbox{[}1\mbox{]}$^\wedge$2 $|$ ... $|$ C\mbox{[}1\mbox{]}$^\wedge$(max\mbox{[}1\mbox{]} -\/ min\mbox{[}1\mbox{]})) + (C\mbox{[}2\mbox{]}$^\wedge$min\mbox{[}2\mbox{]} + $|$ C\mbox{[}2\mbox{]}$^\wedge$1 $|$ C\mbox{[}2\mbox{]}$^\wedge$2 $|$ ... $|$ C\mbox{[}2\mbox{]}$^\wedge$(max\mbox{[}2\mbox{]} -\/ min\mbox{[}2\mbox{]})) + ... 

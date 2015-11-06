@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;Human/XMLHumanPoseRead&apos; to &apos;XMLHumanPoseRead.c&apos;" description="Rename resource &apos;XMLHumanPoseRead&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="XMLHumanPoseRead" name="XMLHumanPoseRead.c" stamp="1344631367733" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;Human/XMLPoseRead.h&apos; to &apos;XMLHumanPoseRead.h&apos;" description="Rename resource &apos;XMLPoseRead.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="XMLPoseRead.h" name="XMLHumanPoseRead.h" stamp="1344631404874" updateReferences="true"/>
+</session>

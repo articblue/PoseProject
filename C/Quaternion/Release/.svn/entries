@@ -1,0 +1,105 @@
+10
+
+dir
+0
+svn://zen12/C/Quaternion/Release
+svn://zen12
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8de96e99-d1b8-41e1-b6af-207ae9cf902a
+
+objects.mk
+file
+
+
+
+add
+
+quatdot.d
+file
+
+
+
+add
+
+quatadd.d
+file
+
+
+
+add
+
+quatconj.d
+file
+
+
+
+add
+
+quatnorm.d
+file
+
+
+
+add
+
+sources.mk
+file
+
+
+
+add
+
+quatsubtraction.d
+file
+
+
+
+add
+
+makefile
+file
+
+
+
+add
+
+quatnormsquared.d
+file
+
+
+
+add
+
+quatproduct.d
+file
+
+
+
+add
+
+subdir.mk
+file
+
+
+
+add
+

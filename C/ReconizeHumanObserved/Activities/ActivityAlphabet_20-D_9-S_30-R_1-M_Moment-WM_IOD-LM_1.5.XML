@@ -1,0 +1,291 @@
+<ActivityAlphabet activity="20" characters="5" sample_rate="30.000000">
+	<weights index="1" value="48.053949" />
+	<weights index="2" value="3.622616" />
+	<weights index="3" value="4.016899" />
+	<weights index="4" value="17.676820" />
+	<weights index="5" value="18.730016" />
+	<weights index="6" value="17.133477" />
+	<weights index="7" value="26.207790" />
+	<weights index="8" value="11.933409" />
+	<weights index="9" value="15.894600" />
+	<character min="14.170479" max="40.331363">
+		<dimension index="1">
+			<quaternion index="1" value="0.997181" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="0.000000" />
+			<quaternion index="4" value="-0.070920" />
+		</dimension>
+		<dimension index="2">
+			<quaternion index="1" value="0.903639" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="0.166430" />
+			<quaternion index="4" value="-0.287294" />
+		</dimension>
+		<dimension index="3">
+			<quaternion index="1" value="0.581071" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="0.749095" />
+			<quaternion index="4" value="-0.211200" />
+		</dimension>
+		<dimension index="4">
+			<quaternion index="1" value="0.819125" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.565274" />
+			<quaternion index="4" value="0.081059" />
+		</dimension>
+		<dimension index="5">
+			<quaternion index="1" value="0.979453" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="-0.140487" />
+			<quaternion index="4" value="-0.130808" />
+		</dimension>
+		<dimension index="6">
+			<quaternion index="1" value="0.684303" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="-0.705145" />
+			<quaternion index="4" value="0.176942" />
+		</dimension>
+		<dimension index="7">
+			<quaternion index="1" value="0.998075" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.023837" />
+			<quaternion index="4" value="-0.038031" />
+		</dimension>
+		<dimension index="8">
+			<quaternion index="1" value="0.755095" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.626992" />
+			<quaternion index="4" value="0.169985" />
+		</dimension>
+		<dimension index="9">
+			<quaternion index="1" value="0.996244" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="-0.035363" />
+			<quaternion index="4" value="-0.023891" />
+		</dimension>
+	</character>
+	<character min="4.611293" max="13.124448">
+		<dimension index="1">
+			<quaternion index="1" value="0.997484" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="0.000000" />
+			<quaternion index="4" value="-0.068180" />
+		</dimension>
+		<dimension index="2">
+			<quaternion index="1" value="0.902581" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="0.131251" />
+			<quaternion index="4" value="-0.303549" />
+		</dimension>
+		<dimension index="3">
+			<quaternion index="1" value="0.611640" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="0.747948" />
+			<quaternion index="4" value="-0.191440" />
+		</dimension>
+		<dimension index="4">
+			<quaternion index="1" value="0.810611" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="-0.580448" />
+			<quaternion index="4" value="0.067056" />
+		</dimension>
+		<dimension index="5">
+			<quaternion index="1" value="0.983338" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="-0.136382" />
+			<quaternion index="4" value="-0.108960" />
+		</dimension>
+		<dimension index="6">
+			<quaternion index="1" value="0.695757" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.692706" />
+			<quaternion index="4" value="0.180555" />
+		</dimension>
+		<dimension index="7">
+			<quaternion index="1" value="0.998061" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.029673" />
+			<quaternion index="4" value="-0.037323" />
+		</dimension>
+		<dimension index="8">
+			<quaternion index="1" value="0.743681" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.642277" />
+			<quaternion index="4" value="0.166906" />
+		</dimension>
+		<dimension index="9">
+			<quaternion index="1" value="0.997145" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="-0.026116" />
+			<quaternion index="4" value="-0.021447" />
+		</dimension>
+	</character>
+	<character min="6.149767" max="17.503183">
+		<dimension index="1">
+			<quaternion index="1" value="0.997753" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="0.000000" />
+			<quaternion index="4" value="-0.063543" />
+		</dimension>
+		<dimension index="2">
+			<quaternion index="1" value="0.889526" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="0.005576" />
+			<quaternion index="4" value="-0.270029" />
+		</dimension>
+		<dimension index="3">
+			<quaternion index="1" value="0.455252" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="0.553735" />
+			<quaternion index="4" value="-0.598431" />
+		</dimension>
+		<dimension index="4">
+			<quaternion index="1" value="0.814907" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="-0.574689" />
+			<quaternion index="4" value="0.060763" />
+		</dimension>
+		<dimension index="5">
+			<quaternion index="1" value="0.983954" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.134527" />
+			<quaternion index="4" value="-0.109753" />
+		</dimension>
+		<dimension index="6">
+			<quaternion index="1" value="0.694432" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="-0.697267" />
+			<quaternion index="4" value="0.168569" />
+		</dimension>
+		<dimension index="7">
+			<quaternion index="1" value="0.997981" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="-0.029991" />
+			<quaternion index="4" value="-0.036240" />
+		</dimension>
+		<dimension index="8">
+			<quaternion index="1" value="0.744863" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.642603" />
+			<quaternion index="4" value="0.159663" />
+		</dimension>
+		<dimension index="9">
+			<quaternion index="1" value="0.997041" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="-0.024946" />
+			<quaternion index="4" value="-0.021187" />
+		</dimension>
+	</character>
+	<character min="11.023333" max="31.374103">
+		<dimension index="1">
+			<quaternion index="1" value="0.997394" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="0.000000" />
+			<quaternion index="4" value="-0.066532" />
+		</dimension>
+		<dimension index="2">
+			<quaternion index="1" value="0.899485" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="0.130699" />
+			<quaternion index="4" value="-0.294130" />
+		</dimension>
+		<dimension index="3">
+			<quaternion index="1" value="0.556454" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="0.773471" />
+			<quaternion index="4" value="-0.171974" />
+		</dimension>
+		<dimension index="4">
+			<quaternion index="1" value="0.802563" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.588559" />
+			<quaternion index="4" value="0.054066" />
+		</dimension>
+		<dimension index="5">
+			<quaternion index="1" value="0.987670" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.112147" />
+			<quaternion index="4" value="-0.089357" />
+		</dimension>
+		<dimension index="6">
+			<quaternion index="1" value="0.691494" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.698317" />
+			<quaternion index="4" value="0.174933" />
+		</dimension>
+		<dimension index="7">
+			<quaternion index="1" value="0.997795" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="-0.028537" />
+			<quaternion index="4" value="-0.038834" />
+		</dimension>
+		<dimension index="8">
+			<quaternion index="1" value="0.747419" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="-0.636271" />
+			<quaternion index="4" value="0.166196" />
+		</dimension>
+		<dimension index="9">
+			<quaternion index="1" value="0.996639" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.029983" />
+			<quaternion index="4" value="-0.022021" />
+		</dimension>
+	</character>
+	<character min="3.045128" max="8.666903">
+		<dimension index="1">
+			<quaternion index="1" value="0.997231" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="0.000000" />
+			<quaternion index="4" value="-0.070194" />
+		</dimension>
+		<dimension index="2">
+			<quaternion index="1" value="0.895673" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="0.117646" />
+			<quaternion index="4" value="-0.314613" />
+		</dimension>
+		<dimension index="3">
+			<quaternion index="1" value="0.534314" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="0.664315" />
+			<quaternion index="4" value="-0.440238" />
+		</dimension>
+		<dimension index="4">
+			<quaternion index="1" value="0.813728" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.573157" />
+			<quaternion index="4" value="0.080585" />
+		</dimension>
+		<dimension index="5">
+			<quaternion index="1" value="0.980555" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="-0.140478" />
+			<quaternion index="4" value="-0.122713" />
+		</dimension>
+		<dimension index="6">
+			<quaternion index="1" value="0.691306" />
+			<quaternion index="2" value="0.000000" />
+			<quaternion index="3" value="-0.698180" />
+			<quaternion index="4" value="0.175096" />
+		</dimension>
+		<dimension index="7">
+			<quaternion index="1" value="0.997962" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.023713" />
+			<quaternion index="4" value="-0.039402" />
+		</dimension>
+		<dimension index="8">
+			<quaternion index="1" value="0.747185" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.636271" />
+			<quaternion index="4" value="0.168702" />
+		</dimension>
+		<dimension index="9">
+			<quaternion index="1" value="0.996489" />
+			<quaternion index="2" value="-0.000000" />
+			<quaternion index="3" value="-0.034555" />
+			<quaternion index="4" value="-0.023035" />
+		</dimension>
+	</character>
+</ActivityAlphabet>

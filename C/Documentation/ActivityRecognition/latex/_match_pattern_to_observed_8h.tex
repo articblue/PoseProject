@@ -1,0 +1,56 @@
+\hypertarget{_match_pattern_to_observed_8h}{
+\section{ActivityRecognition/MatchPatternToObserved.h File Reference}
+\label{_match_pattern_to_observed_8h}\index{ActivityRecognition/MatchPatternToObserved.h@{ActivityRecognition/MatchPatternToObserved.h}}
+}
+{\ttfamily \#include \char`\"{}CacheUnit.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}Pattern.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}Sequence.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_constants_8h_afc78ec715915283bee8ffa1ecc5c3f4d}{real\_\-num} \hyperlink{_match_pattern_to_observed_8h_a2890049a1622349f4e60f8d69e95d649}{matchPatternToObserved} (const \hyperlink{struct___pattern}{Pattern} $\ast$P, const \hyperlink{struct___sequence}{Sequence} $\ast$O, \hyperlink{struct___cache_unit}{CacheUnit} $\ast$$\ast$$\ast$cache, \hyperlink{_constants_8h_afc78ec715915283bee8ffa1ecc5c3f4d}{real\_\-num}($\ast$E)(const \hyperlink{_constants_8h_abcd6b269a1786cbab40e964ed99a8724}{CHARACTER}, const \hyperlink{_constants_8h_abcd6b269a1786cbab40e964ed99a8724}{CHARACTER}), \hyperlink{_constants_8h_afc78ec715915283bee8ffa1ecc5c3f4d}{real\_\-num} $\ast$$\ast$C, \hyperlink{_constants_8h_a6bfd78e0b6a256586c726198e22444a8}{int\_\-num} $\ast$$\ast$D, \hyperlink{_constants_8h_afc78ec715915283bee8ffa1ecc5c3f4d}{real\_\-num} $\ast$maxScore)
+\begin{DoxyCompactList}\small\item\em Finds the score of some observation to an activity. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{_match_pattern_to_observed_8h_a2890049a1622349f4e60f8d69e95d649}{
+\index{MatchPatternToObserved.h@{MatchPatternToObserved.h}!matchPatternToObserved@{matchPatternToObserved}}
+\index{matchPatternToObserved@{matchPatternToObserved}!MatchPatternToObserved.h@{MatchPatternToObserved.h}}
+\subsubsection[{matchPatternToObserved}]{\setlength{\rightskip}{0pt plus 5cm}{\bf real\_\-num} matchPatternToObserved (const {\bf Pattern} $\ast$ {\em P}, \/  const {\bf Sequence} $\ast$ {\em O}, \/  {\bf CacheUnit} $\ast$$\ast$$\ast$ {\em cache}, \/  {\bf real\_\-num}($\ast$)(const {\bf CHARACTER}, const {\bf CHARACTER}) {\em E}, \/  {\bf real\_\-num} $\ast$$\ast$ {\em C}, \/  {\bf int\_\-num} $\ast$$\ast$ {\em D}, \/  {\bf real\_\-num} $\ast$ {\em maxScore})}}
+\label{_match_pattern_to_observed_8h_a2890049a1622349f4e60f8d69e95d649}
+
+
+Finds the score of some observation to an activity. 
+
+Can save results in a chache so that results computed can be saved and used in a future calling
+
+
+\begin{DoxyParams}{Parameters}
+\item[{\em P}]Pattern to match against \item[{\em O}]Observed Character sequence \item[{\em cache}]triple poINTer to save results to save time in the future, set to NULL if not using. \item[{\em $\ast$E}]Function poINTer for computing the Error \item[{\em C}]Two dim array for a section of memory to hold the cost for the string matching. \item[{\em D}]Two dim array for a section of memory to hold the number of deletions done for string. \item[{\em maxScore}]A score which to quit on, set to -\/1 to not use \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Score of how well the Observed sequence matches to the pattern 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+PatternString CharacterSequence \hyperlink{_cache_unit_8h_a010b1255deba05bfb8428f86e7d38c79}{CacheUnit}
+\end{DoxySeeAlso}
+Finds the edit distance of some Pattern sequence P to some Observed sequence O.
+
+To cost of an edit is determined by E, a function pointer passed to this function. The edit distance is the cost of editing sequence O to the regular expression expressed by P. If the cost goes above a certian amount (maxScore) then the editing stops, this allows a means to \char`\"{}give up\char`\"{}, saving execution time.'
+
+If edit cost can be pre-\/computed and passed in the cache matrix. if cache\mbox{[}i\mbox{]}\mbox{[}j\mbox{]}-\/$>$set is true then E(P-\/$>$C\mbox{[}i\mbox{]}, O-\/$>$C\mbox{[}j\mbox{]}) = cache\mbox{[}i\mbox{]}\mbox{[}j\mbox{]}-\/$>$value That is, if the cache at \mbox{[}i,j\mbox{]} is set then the cost of editing the observed character j to the Pattern character i is cache\mbox{[}i\mbox{]}\mbox{[}j\mbox{]}-\/$>$value
+
+The purpose of the chache is to elimenate unessessary computation. Since this algorithm is targeted to a real time system the observed sequence at time t is the same as t-\/1 only with one new character (frame) added on. Therefore the chache from t-\/1 can be shifted, and its values can be used to reduce computation time (at the cost of memory)
+
+
+\begin{DoxyParams}{Parameters}
+\item[{\em P}]Pattern to match against \item[{\em O}]Observed Character sequence \item[{\em cache}]A space to save results and re-\/use already computed results to save time in the future, set to NULL if not using. \item[{\em $\ast$E}]Function pointer for computing the Error \item[{\em C}]Two dim array for a section of memory to hold the cost for the string matching. Needs to be P-\/$>$N X O-\/$>$N. \item[{\em D}]Two dim array for a section of memory to hold the number of deletions done for string. Needs to be P-\/$>$N X O-\/$>$N. \item[{\em maxScore}]A score which to quit on, set to NULL to not use \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Score of how well the Observed sequence matches to the pattern 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{_pattern_8h_ad96e306b574478b93789fff2f984b1c4}{Pattern} \hyperlink{_sequence_8h_abd8c68686aa86f704a5120fdfdf8336c}{Sequence} \hyperlink{_cache_unit_8h_a010b1255deba05bfb8428f86e7d38c79}{CacheUnit} \hyperlink{_constants_8h_abcd6b269a1786cbab40e964ed99a8724}{CHARACTER} 
+\end{DoxySeeAlso}
+
+
+Definition at line 55 of file MatchPatternToObserved.c.
+

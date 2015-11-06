@@ -1,0 +1,88 @@
+10
+
+dir
+1
+svn://zen12/C/.metadata/.plugins
+svn://zen12
+
+
+
+2012-07-13T19:29:00.347862Z
+1
+madisob
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+523b8ce5-333a-4300-b28e-1361260570b2
+
+org.eclipse.ui.intro
+dir
+
+org.eclipse.ltk.ui.refactoring
+dir
+
+org.eclipse.jdt.core
+dir
+
+org.eclipse.core.runtime
+dir
+
+org.eclipse.debug.core
+dir
+
+org.eclipse.cdt.make.core
+dir
+
+org.eclipse.ui.ide
+dir
+
+org.eclipse.ltk.core.refactoring
+dir
+
+org.eclipse.equinox.p2.ui
+dir
+
+org.eclipse.cdt.ui
+dir
+
+org.eclipse.jdt.ui
+dir
+
+org.eclipse.ui.workbench
+dir
+
+org.eclipse.pde.core
+dir
+
+org.eclipse.core.resources
+dir
+
+org.eclipse.cdt.core
+dir
+
+org.eclipse.help.base
+dir
+
+org.eclipse.debug.ui
+dir
+
+org.eclipse.cdt.make.ui
+dir
+
+org.eclipse.cdt.managedbuilder.core
+dir
+
+org.eclipse.equinox.p2.ui.sdk
+dir
+

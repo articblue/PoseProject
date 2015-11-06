@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;XMLStreaming/src/XMLReadPose&apos; to &apos;XMLReadPose.h&apos;" description="Rename resource &apos;XMLReadPose&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/XMLReadPose" name="XMLReadPose.h" stamp="1344630822400" updateReferences="true"/>
+</session>

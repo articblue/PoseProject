@@ -1,0 +1,59 @@
+10
+
+dir
+54
+svn://zen12/C/QuaternionTest
+svn://zen12
+
+
+
+2013-01-23T19:13:23.148516Z
+13
+madisob
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8de96e99-d1b8-41e1-b6af-207ae9cf902a
+
+Release
+dir
+
+
+
+add
+
+.project
+file
+0
+
+
+add
+
+Debug
+dir
+
+
+
+add
+
+.cproject
+file
+0
+
+
+add
+
+src
+dir
+

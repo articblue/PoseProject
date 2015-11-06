@@ -1,0 +1,63 @@
+/*
+ * Human.h
+ *
+ *  Created on: Aug 8, 2012
+ *      Author: madisob
+ */
+
+#ifndef HUMAN_H_
+#define HUMAN_H_
+
+#include "Constants.h"
+#include "quaternion.h"
+
+static const int POSE_DIMENSION = 11;
+
+typedef quaternion SPACE;
+typedef SPACE* POSE;
+
+//! Human Segment Enum.
+/*! Enum of all eight human segment. UNKOWN is used when it is not known what segment
+ * This indicates some issue */
+typedef enum _HUMAN_DIM
+{
+	BODY_X = 0,
+	BODY_Y = 0,
+	BODY_Z = 0,
+	LEFT_UPPER_ARM = 0,
+	LEFT_FORE_ARM,
+	RIGHT_UPPER_ARM,
+	RIGHT_FORE_ARM,
+	LEFT_THIGH,
+	LEFT_SHIN,
+	RIGHT_THIGH,
+	RIGHT_SHIN,
+	UNKOWN
+
+} HUMAN_SEGMENTS;
+
+
+//! Distance metric for the Human Body
+/*!
+ Takes two poses and finds the weighted distance between the two.
+
+ The difference if of the form sum(||P1[i] - P2[i]|| * W[i] ,  i = [0, POSE_DIMENIONS])
+ where || . || denotes quaternion norm
+
+ \param P1	Pose one
+ \param P2	Pose two
+ \param W 	Weight vector
+ \returns	Weighted difference between P1 and P2
+ */
+float humanError(const POSE P1, const POSE P2, const float* W );
+
+
+#if MAX_SIZE_DEFINED == 0
+POSE* constructPoseSequence(const int N);
+
+void freePoseSequence(const int N, POSE* S);
+#endif
+
+
+
+#endif /* HUMAN_H_ */

@@ -1,0 +1,328 @@
+#include "Quaternion.h"
+
+//Default Constructor
+Quaternion::Quaternion()
+{
+	w = 1;
+	vector.x = 0;
+	vector.y = 0;
+	vector.z = 0;
+}
+
+//Constructor
+Quaternion::Quaternion(float scalar, QVector inputVector)
+{
+	w = scalar;
+	vector.x = inputVector.x;
+	vector.y = inputVector.y;
+	vector.z = inputVector.z;
+}
+
+//Angle to Quaternion Constructor -- Roll, Pitch, Heading
+Quaternion::Quaternion(float ax, float ay, float az)
+{
+	w        = cos(ax/2)*cos(ay/2)*cos(az/2) - sin(ax/2)*sin(ay/2)*sin(az/2);
+	vector.x = sin(ax/2)*cos(ay/2)*cos(az/2) + cos(ax/2)*sin(ay/2)*sin(az/2);
+	vector.y = cos(ax/2)*sin(ay/2)*cos(az/2) - sin(ax/2)*cos(ay/2)*sin(az/2);
+	vector.z = cos(ax/2)*cos(ay/2)*sin(az/2) + sin(ax/2)*sin(ay/2)*cos(az/2);
+}
+
+Quaternion Quaternion::operator+(Quaternion q2)
+{
+	Quaternion q3;
+	float w1, x1, y1, z1,
+	      w2, x2, y2, z2;
+
+	w1 = w;
+	x1 = vector.x;
+	y1 = vector.y;
+	z1 = vector.z;
+	w2 = q2.w;
+	x2 = q2.vector.x;
+	y2 = q2.vector.y;
+	z2 = q2.vector.z;
+
+	q3.w = w1+w2;
+	q3.vector.x = x1 + x2;
+	q3.vector.y = y1+y2;
+	q3.vector.z = z1 + z2;
+	
+	return q3;	
+	
+}
+Quaternion Quaternion::operator/(float num)
+{
+	Quaternion q3;
+	float w1, x1, y1, z1;
+
+	w1 = w/num;
+	x1 = vector.x/num;
+	y1 = vector.y/num;
+	z1 = vector.z/num;
+
+	q3.w = w1;
+	q3.vector.x = x1;
+	q3.vector.y = y1;
+	q3.vector.z = z1;
+	
+	return q3;	
+	
+}
+
+
+Quaternion Quaternion::operator*(Quaternion q2)
+{
+	Quaternion q3;
+	float w1, x1, y1, z1,
+	      w2, x2, y2, z2;
+
+	w1 = w;
+	x1 = vector.x;
+	y1 = vector.y;
+	z1 = vector.z;
+
+	w2 = q2.w;
+	x2 = q2.vector.x;
+	y2 = q2.vector.y;
+	z2 = q2.vector.z;
+
+	q3.w        = ( w1*w2 - x1*x2 - y1*y2 - z1*z2 );
+	q3.vector.x = ( w1*x2 + x1*w2 + y1*z2 - z1*y2 );
+	q3.vector.y = ( w1*y2 - x1*z2 + y1*w2 + z1*x2 );
+	q3.vector.z = ( w1*z2 + x1*y2 - y1*x2 + z1*w2 );
+
+	return q3;
+}
+
+Quaternion Quaternion::conjugate()
+{
+	QVector vec;
+
+	vec.x = vector.x * -1.0;
+	vec.y = vector.y * -1.0;
+	vec.z = vector.z * -1.0;
+
+	return Quaternion(w, vec); 
+}
+
+void Quaternion::normalize()
+{
+	QVector vec;
+	float mag;
+
+	mag = sqrt( pow(w, 2) + pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2) );
+
+	w = w / mag;
+	vector.x = vector.x / mag;
+	vector.y = vector.y / mag;
+	vector.z = vector.z / mag;
+}
+
+void Quaternion::toEuler(float &roll, float &pitch, float &yaw)
+{
+	float qw, qx, qy, qz, ax, ay, az;
+
+	qw = w;
+	qx = vector.x;
+	qy = vector.y;
+	qz = vector.z;
+
+	ay = asin(2*(qw*qy + qx*qz));
+
+	if ( fabs(ay) > (PI/2)*(1-0.005) ) // 0.5 percent threshhold
+	{
+		az = 0;
+		if (ay > 0)	ax = 2*atan2(qx, qw);
+		else		ax = -2*atan2(qx, qw);
+	}
+	else
+	{
+		ax = atan2(2*(qw*qx - qy*qz), 1 - 2*(pow(qx, 2) + pow(qy, 2)));
+		az = atan2(2*(qw*qz - qx*qy), 1 - 2*(pow(qy, 2) + pow(qz, 2)));
+	}
+
+	roll = ax;
+	pitch = ay;
+	yaw = az;
+}
+
+// Euler angle to Quaternion
+void Quaternion::fromEuler(const float &roll, const float &pitch, const float &yaw)
+{
+	// The order of rotations is IMPORTANT
+	// The order of rotations is as follows
+	// ZYX from the global to the local reference
+	// Z is the yaw or heading angle (global)
+	// Y is the pitch angle (local to the board)
+	// X is the roll angle (local to the board)
+	// This is the quaternion calculation to define the rotation of
+	// the boards in reference to the global axis as is defined
+	// Global Axis : Z ( rotation about this axis is heading in a global sense)
+	// Global Axis : Y ( rotation about this axis is pitch in a global sense)
+	// Global Axis : X ( rotation about this axis is roll in a global sense)
+	// However if we talk about the Z'Y'X' and Z"Y"X" we have to 
+	// define the rotations about these as what they are locally 
+	// after applying the previous rotation
+
+	// The compass angles are (Global Heading, Local Pitch, Local Roll)
+	// Which is why we MUST define the quaternion calc as
+	// ZYX or ZXY: FOR THIS SYSTEM IT IS DEFINED AS ZYX (heading pitch roll)
+	
+	// ZXY
+	//w = -sin(yaw/2)*sin(pitch/2)*sin(roll/2) + cos(yaw/2)*cos(pitch/2)*cos(roll/2);
+	//vector.x = -sin(yaw/2)*cos(pitch/2)*sin(roll/2) + cos(yaw/2)*sin(pitch/2)*cos(roll/2);
+	//vector.y = sin(yaw/2)*sin(pitch/2)*cos(roll/2) + cos(yaw/2)*cos(pitch/2)*sin(roll/2);
+	//vector.z = sin(yaw/2)*cos(pitch/2)*cos(roll/2) + cos(yaw/2)*sin(pitch/2)*sin(roll/2);
+	
+	// ZYX THIS IS THE ONE THAT WORKS FOR MADISION VIZ
+	w = cos(yaw/2)*cos(pitch/2)*cos(roll/2) + sin(yaw/2)*sin(pitch/2)*sin(roll/2);
+	vector.x = -sin(yaw/2)*sin(pitch/2)*cos(roll/2) + cos(yaw/2)*cos(pitch/2)*sin(roll/2);
+	vector.y = cos(yaw/2)*sin(pitch/2)*cos(roll/2) + sin(yaw/2)*cos(pitch/2)*sin(roll/2);
+	vector.z = -cos(yaw/2)*sin(pitch/2)*sin(roll/2) +sin(yaw/2)*cos(pitch/2)*cos(roll/2);
+	//END MADISION VIZ
+
+	// YZX where Y is heading axis, Z is pitch, X is roll
+	// Taken from madision's code angletoquat.m 
+	// and of course he's changed what the order is...
+	// first rotation is roll...that's dumb
+	// second rotation is heading
+	// third rotation is pitch...wtf
+	//w = cos(roll/2)*cos(yaw/2)*cos(pitch/2) + sin(roll/2)*sin(yaw/2)*sin(pitch/2);
+	//vector.x = sin(roll/2)*cos(yaw/2)*cos(pitch/2) - cos(roll/2)*sin(yaw/2)*sin(pitch/2);
+	//vector.y = cos(roll/2)*sin(yaw/2)*cos(pitch/2) + sin(roll/2)*cos(yaw/2)*sin(pitch/2);
+	//vector.z = cos(roll/2)*cos(yaw/2)*sin(pitch/2) - sin(roll/2)*sin(yaw/2)*cos(pitch/2);
+
+	//w = cos(yaw/2)*cos(pitch/2)*cos(roll/2) - sin(yaw/2)*sin(pitch/2)*sin(roll/2);
+	//vector.x = sin(yaw/2)*sin(pitch/2)*cos(roll/2) + cos(yaw/2)*cos(pitch/2)*sin(roll/2);
+	//vector.y = sin(yaw/2)*cos(pitch/2)*cos(roll/2) + cos(yaw/2)*sin(pitch/2)*sin(roll/2);
+	//vector.z = -sin(yaw/2)*cos(pitch/2)*sin(roll/2) +cos(yaw/2)*sin(pitch/2)*cos(roll/2);
+	
+	// THE BELOW CONVERSION WORKS ONLY FOR THE OPENGL VIZ
+	//w        = cos(roll/2)*cos(pitch/2)*cos(yaw/2) - sin(roll/2)*sin(pitch/2)*sin(yaw/2);
+	//vector.x = sin(roll/2)*cos(pitch/2)*cos(yaw/2) + cos(roll/2)*sin(pitch/2)*sin(yaw/2);
+	//vector.y = cos(roll/2)*sin(pitch/2)*cos(yaw/2) - sin(roll/2)*cos(pitch/2)*sin(yaw/2);
+	//vector.z = cos(roll/2)*cos(pitch/2)*sin(yaw/2) + sin(roll/2)*sin(pitch/2)*cos(yaw/2);
+}
+
+Quaternion Quaternion::rotate(Quaternion q1, QVector v1)
+{
+	return q1 * Quaternion(0, v1) * q1.conjugate();
+}
+
+QVector Quaternion::toVector() const
+{
+	return vector;
+}
+
+const char* Quaternion::toString()
+{
+	ostringstream os;
+
+	os << "w:" << w << " " << vector.toString();
+
+	return os.str().c_str();
+}
+
+float Quaternion::getScalar()
+{
+	return w;
+}
+
+float Quaternion::dot(QVector v1, QVector v2)
+{
+	float product = 0;
+	product += v1.x * v2.x;
+	product += v1.y * v2.y;
+	product += v1.z * v2.z;
+
+	return product;
+}
+
+QVector Quaternion::cross(QVector v1, QVector v2)
+{
+	QVector product;
+	//product.x = v1.y * v2.z - v2.y * v1.z;
+	//product.y = v1.x * v2.z - v2.x * v1.z;
+	//product.z = v1.x * v2.y - v2.x * v1.y;
+
+	product.x = v1.y * v2.z - v1.z * v2.y;
+	product.y = v1.z * v2.x - v1.x * v2.z;
+	product.z = v1.x * v2.y - v1.y * v2.x;
+
+	return product;
+}
+
+Quaternion& Quaternion::operator=(const Quaternion &rhs)
+{
+	if(this == &rhs)
+		return *this;
+	this->w = rhs.w;
+	this->vector.x = rhs.vector.x;
+	this->vector.y = rhs.vector.y;
+	this->vector.z = rhs.vector.z;
+	return *this;
+}
+
+Quaternion& Quaternion::operator+=(const Quaternion &rhs)
+{
+	this->w = this->w+rhs.w;
+	this->vector.x = this->vector.x + rhs.vector.x;
+	this->vector.y = this->vector.y + rhs.vector.y;
+	this->vector.z = this->vector.z + rhs.vector.z;
+	return *this;
+}
+
+Quaternion& Quaternion::operator-=(const Quaternion& rhs)
+{
+	this->w = this->w - rhs.w;
+	this->vector.x = this->vector.x - rhs.vector.x;
+	this->vector.y = this->vector.y - rhs.vector.y;
+	this->vector.z = this->vector.z - rhs.vector.z;
+	return *this;
+}
+
+
+void Quaternion::print()
+{
+	fprintf(stdout,"w[%1.6f] x[%1.6f] y[%1.6f] z[%1.6f]\n",this->w,this->vector.x,this->vector.y,this->vector.z);
+}
+
+
+Quaternion Quaternion::quaternionFromPoints(QVector P1, QVector P2)
+{
+	Quaternion Q;
+	QVector V2;
+	QVector V1 = P2-P1;
+	QVector HalfV1 = V1;
+	
+	HalfV1.x = HalfV1.x + V1.magnitude();
+
+	HalfV1 = HalfV1 / (HalfV1.magnitude());
+
+	V2 = V1.vectorCross(HalfV1);
+	//fprintf(stdout,"QVec: [%2.6f][%2.6f][%2.6f]\n",V2.x,V2.y,V2.z);
+	Q.w = V1.vectorDot(HalfV1);
+	Q.vector.x = V2.x;
+	Q.vector.y = V2.y;
+	Q.vector.z = V2.z;
+	return Q;
+	
+}
+
+void Quaternion::scaleQuat(float num)
+{
+	this->w *= num;
+	this->vector.x *= num;
+	this->vector.y *=num;
+	this->vector.z *= num;
+}
+
+void Quaternion::set_isCompass(bool a)
+{
+	isCompass = a;
+}
+
+bool Quaternion::query_isCompass()
+{
+	return isCompass;
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;ActivityRecognition/ActivitySequence.h&apos; to &apos;ActivityPattern.h&apos;" description="Rename resource &apos;ActivitySequence.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="ActivitySequence.h" name="ActivityPattern.h" stamp="1359662622805" updateReferences="true"/>
+</session>

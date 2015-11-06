@@ -1,0 +1,53 @@
+/*
+ ============================================================================
+ Name        : QuaternionTest.c
+ Author      : Madison Blake
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Quaternion Test - Unit Test of Quaternion Library. Values arrived at using matlab
+ ============================================================================
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <math.h>
+#include "quaternion.h"
+#include "quatconj.h"
+#include "quatproduct.h"
+#include "quatsubtraction.h"
+
+int main(void)
+{
+  struct quaternion Q1, Q2;
+
+  Q1.w = 1;
+  Q1.x = 4;
+  Q1.y = 7;
+  Q1.z = 3;
+
+  Q2.w = 6;
+  Q2.x = 2;
+  Q2.y = 4;
+  Q2.z = 9;
+
+  //Testing conjugate
+  struct quaternion Qconj = quatconj(Q1);
+  if(Qconj.w != Q1.w || Qconj.x != -Q1.x || Qconj.y != -Q1.y || Qconj.z != -Q1.z)
+    printf("ERROR: Conjugate Failure\n");
+
+  //Testing Product
+  struct quaternion Q12Prod = quatproduct(Q1, Q2);
+  if(Q12Prod.w != -57 || Q12Prod.x != 77 || Q12Prod.y != 16 || Q12Prod.z != 29)
+    printf("ERROR: Quaternion Product Failure\n");
+  struct quaternion Q21Prod = quatproduct(Q2, Q1);
+  if(Q12Prod.w != -57 || Q12Prod.x != -25 || Q12Prod.y != 76 || Q12Prod.z != 25)
+    printf("ERROR: Quaternion Product Failure\n");
+
+
+
+
+
+  printf("Done\n");
+  return EXIT_SUCCESS;
+}

@@ -1,0 +1,16 @@
+/*
+ * quatnorm.c
+ *
+ *  Created on: Jul 11, 2012
+ *      Author: madisob
+ */
+#include <math.h>
+#include "quatnorm.h"
+#include "quatconj.h"
+#include "quatproduct.h"
+
+
+double quatnorm(struct quaternion Q)
+{
+  return sqrt(quatproduct(quatconj(Q), Q).w);
+}

@@ -1,0 +1,308 @@
+#include <stdio.h>
+#include "QVector.h"
+#include "Quaternion.h"
+#include "MotionCapture.h"
+//#include "Cordic.h"
+
+using namespace std;
+
+#define PACKET_SIZE		18
+//#define NUM_SENSORS 		9
+//#define NTH_COMPASS_READ	20 // read every nth compass.
+
+#define ACCEL_FLAG		0x80
+#define COMPASS_FLAG		0x40
+
+//#define PI			3.1415927
+
+#define RU_ARM	0x01	
+#define RL_ARM	0x03
+#define TORSO	0x09
+#define LU_ARM	0x00
+#define LL_ARM	0x04
+#define LU_LEG	0x06
+#define LL_LEG	0x08
+#define RU_LEG	0x05
+#define RL_LEG	0x07
+
+int extractArguments(int argc, char* argv[], bool &use_filter, char *serialName, char *fileName, bool &file_encrypted, bool &gyro_calibration_mode, int &g)
+{
+	int c;
+	char defaultSerial[256] = "/dev/ttyS2";
+
+	// Default values
+	memcpy(serialName, defaultSerial, strlen(defaultSerial) + 1);
+	use_filter = false;
+	file_encrypted = true;
+	gyro_calibration_mode = false;
+
+	while ((c = getopt (argc, argv, "a:A:cCuUf:F:hHkKp:P:")) != -1)
+	{
+		switch (c)
+		{
+			case 'a':
+			case 'A':
+				g = atoi(optarg);
+				printf("%d\n", g);
+				break;
+			case 'c':
+			case 'C': // Enter calibration mode
+				gyro_calibration_mode = true;
+				break;
+			case 'f':
+			case 'F': // READ FROM FILE
+				memcpy(fileName, optarg, strlen(optarg) + 1);
+				memset(serialName, '\0', sizeof(char) * 255);
+				break;
+			case 'k':
+			case 'K': // Use Kalman filter
+				use_filter = true;
+				break;
+			case 'p':
+			case 'P': // Change serial port
+				memcpy(serialName, optarg, strlen(optarg) + 1);
+				memset(fileName, '\0', sizeof(char) * 255);
+				break;
+			case 'u':
+			case 'U': // File unencrypted
+				file_encrypted = false;
+				break;
+			case 'h':
+			case 'H':
+				fprintf(stdout, "\nDEFAULT VALUES\n");
+				fprintf(stdout, "\tThis program defaults to reading from serial (port: %s)\n\twith the kalman filters turned off.\n", defaultSerial);
+				fprintf(stdout, "\nDESCRIPTION\n");
+				fprintf(stdout, "\t-c, -C FILE\n\t\tEnter gyroscope calibration mode to see gyro offsets.\n");
+				fprintf(stdout, "\t-f, -F FILE\n\t\tReads from file instead of from the serial port.\n");
+				fprintf(stdout, "\t-h, -H\n\t\tDisplays this help list.\n");
+				fprintf(stdout, "\t-k, -K\n\t\tEnables the Kalman filter.\n");
+				fprintf(stdout, "\t-p, -P\n\t\tSpecify which port to read from on serial.\n");
+				fprintf(stdout, "\t-u, -U\n\t\tSpecifies that the file being read is not encoded.\n");
+				fprintf(stdout, "\n");
+				return -1;
+				break;
+			default:
+				abort ();
+		}
+	}
+
+	return 1;
+}
+
+/*
+Outline of the Motion capture program:
+
+Data comes in from the sensor node Teir 1 sensors.
+This data is convereted from the I2C bus -> serial via the I2C to serial conversion
+board. This is done to abstract from the I2C protocal.
+
+From the serial buffer coming in.
+
+MotionCapture moCap is the container for most of the data structures used.
+This is what containes the quaternions for each node ID.
+Each update of the system produces a 'packet' of data
+This is outlined in Robert Lewis's thesis.
+
+
+*/
+int main(int argc, char* argv[])
+{
+	MotionCapture moCap;
+	
+	QVector GyroAvg[NUM_SENSORS];
+	QVector GyroRunAvg[3][NUM_SENSORS];
+	QVector CompassRunAvg[3][NUM_SENSORS];
+
+	int GyroIdx = 0;
+	int CompassIdx = 0;
+	float GyroRunAvgX=0;
+	float GyroRunAvgY=0;
+	float GyroRunAvgZ=0;
+	float CompassRunAvgX=0;
+	float CompassRunAvgY=0;
+	float CompassRunAvgZ=0;
+	
+	int GyroAvgCount = 0;
+	bool doneGyroAvg = false;
+
+	char fileName[256];
+	char serialName[256];
+	int g;
+	unsigned char myID, packet_flags;
+	int packet_size;
+//	float heading, pitch, roll;
+	char dataPacket[PACKET_SIZE];
+	//char delete_me[PACKET_SIZE] = {0};
+	Quaternion tempQuat, tempQuat2, tempQuat3, qCurrent;
+	Quaternion *tempPtrQuat;
+	
+	bool use_filter = true, file_encrypted = false, gyro_calibration_mode = false;
+
+	// Vectors for the difference sensors
+	QVector orientationVector, rotationVector, accelVector, wavg;
+	
+	// Extract arguments and exit upon failure
+	if ( extractArguments(argc, argv, use_filter, serialName, fileName, file_encrypted, gyro_calibration_mode, g) == -1 )
+		return 0;
+	
+	if ( serialName[0] != '\0' ) // this is set to NULL when the user wishes to read from a file instead
+	{
+		if ( moCap.openSerialPort(serialName, 1) != 1 )
+			return -1;
+	}
+	else
+	{
+		if ( moCap.openFile(fileName) != 1 )
+			return -1;
+	}
+	
+	// Read and apply gyroscope offsets from configuration file	
+	if ( !gyro_calibration_mode )
+		if ( !moCap.readConfigurationFile() )
+			fprintf(stderr, "Unable to open configuration file\n");
+
+//static struct timeval m_ts, m_tf;
+
+	while( 1 )
+	{
+		// Get a data packet; length depends on whether this is a full, half, or quarter update
+		// The data will be either a full or half packet, there is no quater packet update anymore
+		moCap.getPacket(packet_size, dataPacket, packet_flags, file_encrypted);
+		//fprintf(stdout,"Hello World\n");
+		if ( (serialName[0] == '\0') && packet_size == -1 ) // EOF when reading from file
+		{
+			moCap.closeFile();
+			break;
+		}
+		
+		// get sensor ID from packet
+		myID = moCap.getID(dataPacket);
+		//fprintf(stdout,"MyId is %02x\n",myID);
+		// keep from segfaulting from a bad ID
+		if (!moCap.validID(myID))//myID >= NUM_SENSORS )
+			continue;
+		
+		// If the user selects to enter gyroscope calibration mode then do not compute the HPR as normal
+		if ( gyro_calibration_mode )
+		{
+			// Continue until the function returns true (has printed data).
+			if ( moCap.printGyroOffsets(myID, dataPacket[1], dataPacket[2], dataPacket[3], dataPacket[4]) )
+				return 1;
+			else
+				continue;
+		}
+
+		float updatedPitch, updatedRoll, accelMag;
+		// Calculate the accel using filtered pitch and roll
+		// This isn't actually the case, we are using the raw
+		// accel now, the filtered pitch / roll stuff isn't used
+		// JHD 7_3_13
+		// Pull out the accel vector from the packet.
+		// There is some sanity checking on the accel vector to prevent jaunce / jolts
+		// Also if accel is at / under the noise floor of the system we zero it out so we
+		// dont' just intergrate noise as movement.
+		if ( packet_flags & ACCEL_FLAG )
+		{
+			accelVector = moCap.extractAccel(myID, dataPacket, updatedPitch, updatedRoll);
+
+		}
+		// Process compass data if it exists, otherwise use gyro
+		if ( packet_flags & COMPASS_FLAG )
+		{
+			orientationVector = moCap.extractCompass(myID, dataPacket, packet_size);
+
+			// Design decision is that the compass update is an absoulte ground truth
+			// that we must trust.
+			// Therefore there is not truthiness metric here.
+			// JHD 7/29/13
+			CompassRunAvg[CompassIdx%3][myID].x = orientationVector.x;
+			CompassRunAvg[CompassIdx%3][myID].y = orientationVector.y;
+			CompassRunAvg[CompassIdx%3][myID].z = orientationVector.z;
+			CompassIdx ++;
+			CompassIdx = CompassIdx%3;
+			CompassRunAvgX = (CompassRunAvg[0][myID].x + CompassRunAvg[1][myID].x + CompassRunAvg[2][myID].x) / 3;
+			CompassRunAvgY = (CompassRunAvg[0][myID].y + CompassRunAvg[1][myID].y + CompassRunAvg[2][myID].y) / 3;
+			CompassRunAvgZ = (CompassRunAvg[0][myID].z + CompassRunAvg[1][myID].z + CompassRunAvg[2][myID].z) / 3;
+
+			
+			
+			//tempQuat.fromEuler(CompassRunAvgX,CompassRunAvgY,CompassRunAvgZ);			
+			// Instantiate the tempQuaternion to hold the value for the quaternion
+			tempQuat.fromEuler(orientationVector.x, orientationVector.y, orientationVector.z);
+			tempQuat.normalize();
+			// since the quaternion information for the body model is now in the motionCapture class
+			// we are now setting that quaternion in there using the setQuat function
+			moCap.setQuat(myID,tempQuat,true);
+			
+			// Assume compass is correct, no need for gyro offset
+			rotationVector.x = 0;
+			rotationVector.y = 0;
+			rotationVector.z = 0;
+
+			//delete_me[myID]++;
+		}
+		else
+		{
+			// This is the gyro method effectively
+			rotationVector = moCap.extractGyro(myID, dataPacket);			
+			// Now that we have the angles for the roll, pitch and yaw according to the gyro
+			// We are going to 'add them' current Quaternion rotation
+			wavg = rotationVector;
+			if(!doneGyroAvg)
+			{
+				GyroAvg[myID].x +=wavg.x;
+				GyroAvg[myID].y +=wavg.y;
+				GyroAvg[myID].z +=wavg.z;
+			}
+			if(doneGyroAvg == false && myID == TORSO)
+			{
+				GyroAvgCount++;
+			}	
+			if(GyroAvgCount>100)
+				doneGyroAvg = true;
+			
+			GyroRunAvg[GyroIdx%3][myID].x = wavg.x;
+			GyroRunAvg[GyroIdx%3][myID].y = wavg.y;
+			GyroRunAvg[GyroIdx%3][myID].z = wavg.z;
+			GyroIdx ++;
+			GyroIdx = GyroIdx%3;
+			GyroRunAvgX = (GyroRunAvg[0][myID].x + GyroRunAvg[1][myID].x + GyroRunAvg[2][myID].x) / 3;
+			GyroRunAvgY = (GyroRunAvg[0][myID].y + GyroRunAvg[1][myID].y + GyroRunAvg[2][myID].y) / 3;
+			GyroRunAvgZ = (GyroRunAvg[0][myID].z + GyroRunAvg[1][myID].z + GyroRunAvg[2][myID].z) / 3;
+
+			// Create the new composite quat
+			//tempQuat2.fromEuler(GyroRunAvgX,GyroRunAvgY,GyroRunAvgZ);
+			tempQuat2.fromEuler(wavg.x,wavg.y,wavg.z);
+			tempQuat2.normalize();
+			tempPtrQuat = moCap.getQuat(myID);
+			(*tempPtrQuat).normalize();
+			tempQuat3 = tempQuat2*(*tempPtrQuat);
+			tempQuat3.normalize();
+//			if(myID == RU_ARM)
+//				tempQuat3.print();
+			// Removing for the compass only noise
+			moCap.setQuat(myID,tempQuat3,false);
+			tempPtrQuat = NULL;
+		}
+
+
+		// Apply Extended Kalman Filter
+		// If teh kalman filter is used it is noisy as hell in the vizualizer.
+		// probably not correctly implemented on the predict / update matricies
+		//if ( use_filter )
+		//moCap.applyEKF(myID, rotationVector, accelVector, packet_flags & COMPASS_FLAG, g);
+
+		// double check the ID
+		// really this should be valid so we go ahead and print the results to the output
+		// TODO: Setup for filestream output
+		if(moCap.validID(myID))
+		{
+			moCap.Rotate_To_TorsoReference(myID);
+			if(moCap.getTorsoFlag())
+				moCap.printResults(myID, accelVector);	
+		}
+	}
+
+	return 0;
+}
+

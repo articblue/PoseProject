@@ -1,0 +1,15 @@
+/*
+ * quatsubtraction.h
+ *
+ *  Created on: Jul 11, 2012
+ *      Author: madisob
+ */
+
+#ifndef QUATSUBTRACTION_H_
+#define QUATSUBTRACTION_H_
+
+#include "quaternion.h"
+
+struct quaternion quatsubtraction(struct quatsubtraction Q1, struct quatsubtraction Q2);
+
+#endif /* QUATSUBTRACTION_H_ */

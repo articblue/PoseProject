@@ -1,0 +1,1 @@
+double quatnorm(quaternion Q1);

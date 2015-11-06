@@ -1,0 +1,82 @@
+/*
+ * SimpleTest.c
+ *
+ *  Created on: Aug 15, 2012
+ *      Author: madisob
+ */
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include "MatchPatternToObserved.h"
+#include "PatternString.h"
+#include "CharacterSequence.h"
+
+#include "quatnorm.h"
+#include "quatsubtraction.h"
+
+#define DIMENSIONS 1
+
+static const int PATTERNLENGTH = 4;
+static const int OBSERVEDLENGTH = 4;
+
+float Errors(const CHARACTER, const CHARACTER, const float* W);
+
+int SimpleTest()
+{
+	int error_return = 0;
+	int i;
+	int j;
+
+
+	float W[DIMENSIONS] = {1};
+
+	int** C = (malloc(sizeof(int*) * PATTERNLENGTH));
+	for(i = 0 ; i < PATTERNLENGTH ; i++)
+	{
+		C[i] = malloc(sizeof(int) * DIMENSIONS);
+		C[i][0] = abs(i-2);
+	}
+
+	float min[4] = {1,1,1,1};
+	float max[4] = {1,1,1,1};
+
+	//Construct Activity
+	PatternString A;
+	A.N = PATTERNLENGTH;
+	A.sample_rate = 1.0;
+	A.C = (CHARACTER*)C;
+	A.W = W;
+	A.min = min;
+	A.max = max;
+
+	//Construct Observed
+	CharacterSequence O;
+	O.N = OBSERVEDLENGTH;
+	O.sample_rate = 1.0;
+	O.C = (CHARACTER*)C;
+
+	CacheUnit*** cache = malloc(sizeof(CacheUnit**) * OBSERVEDLENGTH);
+	for(i = 0 ; i < OBSERVEDLENGTH ; i++)
+	{
+		cache[i] = malloc(sizeof(CacheUnit*) * PATTERNLENGTH);
+		for(j = 0 ; j < PATTERNLENGTH ; j++)
+		{
+			cache[i][j] = malloc(sizeof(CacheUnit));
+			cache[i][j]->set = 0;
+		}
+	}
+
+	float Score = matchPatternToObserved(&A, &O, cache, &Errors);
+	if(Score != 0.0)
+	{
+		printf("  The score for this test does not equal Zero!\n");
+		error_return = 1;
+	}
+
+	return error_return;
+}
+
+float Errors(const CHARACTER C1, const CHARACTER C2, const float* W)
+{
+	return 0;
+}

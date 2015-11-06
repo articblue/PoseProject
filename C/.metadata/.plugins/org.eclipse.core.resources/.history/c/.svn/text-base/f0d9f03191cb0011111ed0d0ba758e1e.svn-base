@@ -1,0 +1,18 @@
+/*
+ * quatsubtraction.c
+ *
+ *  Created on: Jul 11, 2012
+ *      Author: madisob
+ */
+#include "quatsubtraction.h"
+
+struct quaternion quatsubtraction(struct quaternion Q1, struct quaternion Q2)
+{
+  struct quaternion rtn_quat;
+
+  rtn_quat.w = Q1.w - Q2.w;
+  rtn_quat.x = Q1.x - Q2.x;
+  rtn_quat.y = Q1.y - Q2.y;
+  rtn_quat.z = Q1.z - Q2.z;
+
+}

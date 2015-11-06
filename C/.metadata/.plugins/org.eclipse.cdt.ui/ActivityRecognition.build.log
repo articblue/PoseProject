@@ -1,0 +1,17 @@
+
+**** Build of configuration Release for project ActivityRecognition ****
+
+make all 
+Building file: ../MatchPatternToObserved.c
+Invoking: GCC C Compiler
+gcc -I"/home/madison/Dropbox/PoseProject-sync/C/Quaternion" -O3 -Wall -c -fmessage-length=0 -lm -fPIC -MMD -MP -MF"MatchPatternToObserved.d" -MT"MatchPatternToObserved.d" -o "MatchPatternToObserved.o" "../MatchPatternToObserved.c"
+Finished building: ../MatchPatternToObserved.c
+ 
+Building target: libActivityRecognition.a
+Invoking: GCC Archiver
+ar -r  "libActivityRecognition.a"  ./CharacterSequence.o ./MatchPatternToObserved.o   
+ar: creating libActivityRecognition.a
+Finished building target: libActivityRecognition.a
+ 
+
+**** Build Finished ****

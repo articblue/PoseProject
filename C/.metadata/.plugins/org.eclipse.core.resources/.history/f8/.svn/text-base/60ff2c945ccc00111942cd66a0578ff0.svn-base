@@ -1,0 +1,16 @@
+/*
+ * quatproduct.h
+ *
+ *  Created on: Jul 11, 2012
+ *      Author: madisob
+ */
+
+#ifndef QUATPRODUCT_H_
+#define QUATPRODUCT_H_
+
+#include "quaternion.h"
+
+struct quaternion quatproduct(struct quaternion, struct quaternion);
+struct quaternion quatproduct(struct quaternion, double scaler);
+
+#endif /* QUATPRODUCT_H_ */

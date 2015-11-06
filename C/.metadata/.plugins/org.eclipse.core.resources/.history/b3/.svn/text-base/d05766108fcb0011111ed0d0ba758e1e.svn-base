@@ -1,0 +1,13 @@
+/*
+ * quatnorm.c
+ *
+ *  Created on: Jul 11, 2012
+ *      Author: madisob
+ */
+
+#include "quatnorm.h"
+
+double quatnorm(int Q)
+{
+  return 0;
+}

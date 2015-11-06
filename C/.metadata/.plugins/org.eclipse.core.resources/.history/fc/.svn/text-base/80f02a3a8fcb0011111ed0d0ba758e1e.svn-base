@@ -1,0 +1,12 @@
+#ifndef QUATERNION_H_
+#define QUATERNION_H_
+
+struct quaternion
+{
+  double w;
+  double x;
+  double y;
+  double z;
+};
+
+#endif QUATERNION_H_

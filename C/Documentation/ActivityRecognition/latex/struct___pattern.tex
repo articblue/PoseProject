@@ -1,0 +1,94 @@
+\hypertarget{struct___pattern}{
+\section{\_\-Pattern Struct Reference}
+\label{struct___pattern}\index{\_\-Pattern@{\_\-Pattern}}
+}
+
+
+A regular expression to express a set of possible sequences.  
+
+
+
+
+{\ttfamily \#include $<$Pattern.h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_constants_8h_afc78ec715915283bee8ffa1ecc5c3f4d}{real\_\-num} \hyperlink{struct___pattern_a699592f96d08e00211f2e1ae82cfeb60}{sample\_\-rate}
+\item 
+int \hyperlink{struct___pattern_a7722c8ecbb62d99aee7ce68b1752f337}{N}
+\item 
+\hyperlink{_constants_8h_abcd6b269a1786cbab40e964ed99a8724}{CHARACTER} $\ast$ \hyperlink{struct___pattern_ace6a083ab9219ee974a505ec2e08e9cc}{C}
+\item 
+\hyperlink{_constants_8h_afc78ec715915283bee8ffa1ecc5c3f4d}{real\_\-num} $\ast$ \hyperlink{struct___pattern_a4f44fb0273d5bdbe12505fc74c4e53c5}{min}
+\item 
+\hyperlink{_constants_8h_afc78ec715915283bee8ffa1ecc5c3f4d}{real\_\-num} $\ast$ \hyperlink{struct___pattern_a205c3e88cd22e9df2e06e59aad19ef9e}{max}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A regular expression to express a set of possible sequences. A Pattern expresses a set of sequences which together represent the regular expression of the pattern Using information in the structure a regular expression can be constructed to match against.
+
+A sequence is a size N array of characters. Each character is of type CHARACTER.
+
+It is assumed that each character has been pulled from some stream. sample\_\-rate defines that streams sample rate, how much time exist between C\mbox{[}i\mbox{]} and C\mbox{[}i+1\mbox{]}.
+
+Each character is allowed a minimum and maximum occurences in the regular expression.
+
+The regex for possible sequences (assuming matching sample\_\-rate's) for the activity is expressed by: (C\mbox{[}1\mbox{]}$^\wedge$min\mbox{[}1\mbox{]} + $|$ C\mbox{[}1\mbox{]}$^\wedge$1 $|$ C\mbox{[}1\mbox{]}$^\wedge$2 $|$ ... $|$ C\mbox{[}1\mbox{]}$^\wedge$(max\mbox{[}1\mbox{]} -\/ min\mbox{[}1\mbox{]})) + (C\mbox{[}2\mbox{]}$^\wedge$min\mbox{[}2\mbox{]} + $|$ C\mbox{[}2\mbox{]}$^\wedge$1 $|$ C\mbox{[}2\mbox{]}$^\wedge$2 $|$ ... $|$ C\mbox{[}2\mbox{]}$^\wedge$(max\mbox{[}2\mbox{]} -\/ min\mbox{[}2\mbox{]})) + ... 
+
+Definition at line 27 of file Pattern.h.
+
+
+
+\subsection{Field Documentation}
+\hypertarget{struct___pattern_ace6a083ab9219ee974a505ec2e08e9cc}{
+\index{\_\-Pattern@{\_\-Pattern}!C@{C}}
+\index{C@{C}!_Pattern@{\_\-Pattern}}
+\subsubsection[{C}]{\setlength{\rightskip}{0pt plus 5cm}{\bf CHARACTER}$\ast$ {\bf C}}}
+\label{struct___pattern_ace6a083ab9219ee974a505ec2e08e9cc}
+The string of characters. 
+
+Definition at line 31 of file Pattern.h.
+
+\hypertarget{struct___pattern_a205c3e88cd22e9df2e06e59aad19ef9e}{
+\index{\_\-Pattern@{\_\-Pattern}!max@{max}}
+\index{max@{max}!_Pattern@{\_\-Pattern}}
+\subsubsection[{max}]{\setlength{\rightskip}{0pt plus 5cm}{\bf real\_\-num}$\ast$ {\bf max}}}
+\label{struct___pattern_a205c3e88cd22e9df2e06e59aad19ef9e}
+Size N array of the maximum times each character can be repeated. 
+
+Definition at line 34 of file Pattern.h.
+
+\hypertarget{struct___pattern_a4f44fb0273d5bdbe12505fc74c4e53c5}{
+\index{\_\-Pattern@{\_\-Pattern}!min@{min}}
+\index{min@{min}!_Pattern@{\_\-Pattern}}
+\subsubsection[{min}]{\setlength{\rightskip}{0pt plus 5cm}{\bf real\_\-num}$\ast$ {\bf min}}}
+\label{struct___pattern_a4f44fb0273d5bdbe12505fc74c4e53c5}
+Size N array of the minimum times each character can be repeated. 
+
+Definition at line 33 of file Pattern.h.
+
+\hypertarget{struct___pattern_a7722c8ecbb62d99aee7ce68b1752f337}{
+\index{\_\-Pattern@{\_\-Pattern}!N@{N}}
+\index{N@{N}!_Pattern@{\_\-Pattern}}
+\subsubsection[{N}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf N}}}
+\label{struct___pattern_a7722c8ecbb62d99aee7ce68b1752f337}
+Number of characters in pattern 
+
+Definition at line 30 of file Pattern.h.
+
+\hypertarget{struct___pattern_a699592f96d08e00211f2e1ae82cfeb60}{
+\index{\_\-Pattern@{\_\-Pattern}!sample\_\-rate@{sample\_\-rate}}
+\index{sample\_\-rate@{sample\_\-rate}!_Pattern@{\_\-Pattern}}
+\subsubsection[{sample\_\-rate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf real\_\-num} {\bf sample\_\-rate}}}
+\label{struct___pattern_a699592f96d08e00211f2e1ae82cfeb60}
+Sample rate of the activity. 
+
+Definition at line 29 of file Pattern.h.
+
+
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+ActivityRecognition/\hyperlink{_pattern_8h}{Pattern.h}\end{DoxyCompactItemize}

@@ -1,0 +1,91 @@
+10
+
+dir
+0
+svn://zen12/C/ReconizeHumanObserved/Release
+svn://zen12
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8de96e99-d1b8-41e1-b6af-207ae9cf902a
+
+objects.mk
+file
+
+
+
+add
+
+ReconizeHumanObserved
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+objects (madisonLaptop's conflicted copy 2012-08-22).mk
+file
+
+
+
+add
+
+src
+dir
+
+
+
+add
+
+sources.mk
+file
+
+
+
+add
+
+ReconizeHumanObserved (madisonLaptop's conflicted copy 2012-08-17)
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+makefile
+file
+
+
+
+add
+
